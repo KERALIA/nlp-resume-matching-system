@@ -1,0 +1,109 @@
+[
+  {
+    "id": "JD_NLP_01",
+    "title": "Senior NLP & Machine Learning Engineer",
+    "domain": "Machine Learning",
+    "min_experience_years": 4,
+    "required_skills": ["python", "pytorch", "natural language processing", "transformers", "bert", "scikit-learn", "rest api", "docker"],
+    "preferred_skills": ["sentence-bert", "spacy", "huggingface", "fastapi", "kubernetes", "mlops", "langchain"],
+    "description": "We are seeking a Senior NLP & Machine Learning Engineer to spearhead our semantic search and language intelligence infrastructure. The ideal candidate will design, fine-tune, and deploy transformer-based representation models (BERT, RoBERTa, Sentence-Transformers) for large-scale document ranking, semantic similarity, and entity extraction. Responsibilities include building robust NLP pipelines with PyTorch and HuggingFace, operationalizing microservices via FastAPI and Docker, and maintaining high-throughput inference systems in production. Candidates must demonstrate deep expertise in vector embeddings, cosine ranking, evaluation metrics (NDCG, MRR), and ML lifecycle monitoring.",
+    "ground_truth_relevance": {
+      "RES_NLP_01": 3,
+      "RES_NLP_02": 3,
+      "RES_NLP_03": 2,
+      "RES_DS_01": 2,
+      "RES_DS_02": 2,
+      "RES_BACKEND_01": 1,
+      "RES_DEVOPS_01": 1,
+      "RES_WEB_01": 0,
+      "RES_WEB_02": 0,
+      "RES_SEC_01": 0,
+      "RES_MOBILE_01": 0,
+      "RES_CORRUPT_01": 0
+    }
+  },
+  {
+    "id": "JD_FS_01",
+    "title": "Full-Stack Web Engineer (React & Node.js)",
+    "domain": "Web Development",
+    "min_experience_years": 3,
+    "required_skills": ["javascript", "typescript", "react", "node.js", "rest api", "postgresql", "html5", "css3", "git"],
+    "preferred_skills": ["next.js", "graphql", "tailwind css", "redis", "docker", "unit testing"],
+    "description": "Looking for a seasoned Full-Stack Web Developer to develop scalable client-facing web applications. You will architect responsive, accessible user interfaces using React, TypeScript, and modern state management patterns, while implementing resilient microservice backends using Node.js, Express, and PostgreSQL. Key responsibilities include designing RESTful APIs, caching hot queries using Redis, establishing CI/CD test automation, and collaborating closely with UI/UX designers to translate Figma prototypes into performant production code.",
+    "ground_truth_relevance": {
+      "RES_WEB_01": 3,
+      "RES_WEB_02": 3,
+      "RES_WEB_03": 2,
+      "RES_BACKEND_01": 2,
+      "RES_MOBILE_01": 1,
+      "RES_DEVOPS_01": 1,
+      "RES_NLP_01": 0,
+      "RES_NLP_02": 0,
+      "RES_DS_01": 0,
+      "RES_SEC_01": 0,
+      "RES_CORRUPT_01": 0
+    }
+  },
+  {
+    "id": "JD_DEVOPS_01",
+    "title": "Cloud Infrastructure & DevOps Engineer",
+    "domain": "Cloud & DevOps",
+    "min_experience_years": 4,
+    "required_skills": ["aws", "kubernetes", "docker", "terraform", "ci/cd", "linux", "bash", "prometheus"],
+    "preferred_skills": ["helm", "ansible", "grafana", "python", "golang", "gitlab ci", "cloudformation"],
+    "description": "Seeking an experienced Cloud DevOps Engineer to lead infrastructure automation, container orchestration, and multi-region reliability on AWS. The candidate will write declarative Infrastructure-as-Code using Terraform, manage production Kubernetes clusters (EKS), architect zero-downtime CI/CD deployment pipelines, and configure comprehensive telemetry dashboards using Prometheus and Grafana. Strong proficiency in Linux systems internals, shell scripting, container security hardening, and VPC networking is mandatory.",
+    "ground_truth_relevance": {
+      "RES_DEVOPS_01": 3,
+      "RES_DEVOPS_02": 3,
+      "RES_DEVOPS_03": 2,
+      "RES_BACKEND_01": 2,
+      "RES_SEC_01": 1,
+      "RES_WEB_01": 1,
+      "RES_NLP_01": 0,
+      "RES_DS_01": 0,
+      "RES_MOBILE_01": 0,
+      "RES_CORRUPT_01": 0
+    }
+  },
+  {
+    "id": "JD_SEC_01",
+    "title": "Information Security & SOC Analyst",
+    "domain": "Cybersecurity",
+    "min_experience_years": 3,
+    "required_skills": ["vulnerability assessment", "penetration testing", "owasp", "siem", "network security", "incident response", "wireshark"],
+    "preferred_skills": ["burp suite", "metasploit", "cryptography", "python", "soc", "linux", "iam"],
+    "description": "We are hiring an Information Security Analyst to safeguard corporate digital assets, monitor security event streams, and conduct proactive threat hunting. You will analyze SIEM telemetry alerts, coordinate incident response workflows, perform routine vulnerability assessments and web application penetration tests against OWASP Top 10 vulnerabilities, and enforce Identity and Access Management policies. Familiarity with Wireshark packet inspection and script automation in Python/Bash is required.",
+    "ground_truth_relevance": {
+      "RES_SEC_01": 3,
+      "RES_SEC_02": 3,
+      "RES_SEC_03": 2,
+      "RES_DEVOPS_01": 1,
+      "RES_BACKEND_01": 1,
+      "RES_WEB_01": 0,
+      "RES_NLP_01": 0,
+      "RES_DS_01": 0,
+      "RES_MOBILE_01": 0,
+      "RES_CORRUPT_01": 0
+    }
+  },
+  {
+    "id": "JD_DS_01",
+    "title": "Data Scientist - Predictive Analytics & Statistical Modeling",
+    "domain": "Data Science",
+    "min_experience_years": 3,
+    "required_skills": ["python", "scikit-learn", "sql", "machine learning", "feature engineering", "data science", "xgboost"],
+    "preferred_skills": ["r", "snowflake", "bigquery", "pandas", "tableau", "deep learning", "hyperparameter tuning"],
+    "description": "Join our data science team to uncover predictive patterns and optimize business decision systems. The Data Scientist will formulate quantitative hypotheses, engineer predictive features from high-volume transactional databases using SQL and Pandas, build robust gradient boosting models (XGBoost, LightGBM) and linear classifiers, and validate results through rigorous cross-validation and statistical significance testing. You must have proven ability to communicate data-driven insights to executive stakeholders.",
+    "ground_truth_relevance": {
+      "RES_DS_01": 3,
+      "RES_DS_02": 3,
+      "RES_NLP_01": 2,
+      "RES_NLP_02": 2,
+      "RES_BACKEND_01": 1,
+      "RES_WEB_01": 0,
+      "RES_DEVOPS_01": 0,
+      "RES_SEC_01": 0,
+      "RES_CORRUPT_01": 0
+    }
+  }
+]

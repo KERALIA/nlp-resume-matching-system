@@ -1,0 +1,12 @@
+{
+  "name": "talentmatch-enterprise",
+  "version": "1.0.0",
+  "description": "NLP-Based Resume and Job Description Matching System",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "author": "Patel Aum Shirishkumar",
+  "license": "MIT"
+}

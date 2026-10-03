@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>TalentMatch AI — Intelligent Resume & Job Description Matching System</title>
+  <meta name="description" content="AI-driven candidate recommendation and ATS scoring platform leveraging Sentence-BERT dense embeddings, Okapi BM25, and explicit skill verification. Developed by Patel Aum Shirishkumar (12302040601004).">
+
+  <!-- Apple SF Pro Font Hierarchy & High-Precision Fallbacks -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Client-Side PDF & DOCX Parsers -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    if (window.pdfjsLib) {
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===================================================================== -->
+  <!-- 1. SLEEK UNIFIED TOP NAVIGATION                                       -->
+  <!-- ===================================================================== -->
+  <nav class="app-navbar">
+    <div class="container-wide app-navbar-inner">
+      
+      <!-- Brand Identity -->
+      <a class="brand-identity-wrap" href="#pipeline-section">
+        <div class="brand-icon-mark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+        </div>
+        <div class="brand-title-text">TalentMatch <span>AI</span></div>
+      </a>
+
+      <!-- Navigation Links -->
+      <div class="app-nav-menu">
+        <button class="app-nav-link-btn active" data-target="pipeline-section">Candidate Pipeline</button>
+        <button class="app-nav-link-btn" data-target="ats-section">ATS Resume Health</button>
+        <button class="app-nav-link-btn" data-target="calibration-section">Model Calibration</button>
+        <button class="app-nav-link-btn" data-target="security-section">Anti-Spam Security</button>
+        <button class="app-nav-link-btn" data-target="deliverables-section">Academic Deliverables</button>
+      </div>
+
+      <!-- Right CTA -->
+      <div class="app-nav-right">
+        <a href="#ats-section" class="nav-cta-blue">Evaluate Resume</a>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ===================================================================== -->
+  <!-- TILE 1: PURE WHITE (#ffffff) — CANDIDATE SEMANTIC MATCHING PIPELINE   -->
+  <!-- ===================================================================== -->
+  <section id="pipeline-section" class="apple-tile tile-white">
+    <div class="container">
+      
+      <!-- Headline Stack -->
+      <div class="tile-headline-stack">
+        <div class="tile-category-tag">Tri-Partite Neural Matching Engine</div>
+        <h1 class="tile-display-title">Candidate Semantic Matching.</h1>
+        <p class="tile-lead-subcopy">
+          Dual-encoder Sentence-BERT representations paired with Okapi BM25 ranking and deterministic 350+ technology skill ontology verification.
+        </p>
+        <div class="tile-cta-group">
+          <a href="#ats-section" class="apple-btn-primary">Evaluate Your Resume</a>
+          <button id="toggleCustomJdBtn" class="apple-btn-secondary">✍️ Match Custom Job Description</button>
+        </div>
+      </div>
+
+      <!-- Custom Job Description Composer (Collapsible) -->
+      <div class="custom-jd-box" id="customJdBox">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <div>
+            <h3 style="font-size:18px; font-weight:600; color:var(--apple-ink);">Custom Job Description Matching</h3>
+            <p style="font-size:13.5px; color:var(--apple-ink-muted-48);">Paste any real job specification from LinkedIn, Google, etc. Our NLP engine will extract skills and rank candidates in real-time.</p>
+          </div>
+          <button id="closeCustomJdBtn" style="background:none; border:none; font-size:18px; cursor:pointer; color:var(--apple-ink-muted-48);">✕</button>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+          <input type="text" id="customJdTitle" placeholder="Job Title (e.g. Lead Generative AI Researcher)" style="padding:10px 14px; border:1px solid var(--apple-hairline); border-radius:var(--radius-sm); font-size:14px; outline:none;">
+          <input type="text" id="customJdDomain" placeholder="Domain (e.g. Artificial Intelligence)" style="padding:10px 14px; border:1px solid var(--apple-hairline); border-radius:var(--radius-sm); font-size:14px; outline:none;">
+        </div>
+        <textarea id="customJdText" class="custom-jd-textarea" placeholder="Paste full job description text, requirements, qualifications, and responsibilities here..."></textarea>
+        <div style="display:flex; justify-content:flex-end; gap:10px;">
+          <button id="applyCustomJdBtn" class="apple-btn-primary" style="font-size:14px; padding:9px 20px;">⚡ Apply & Rank Candidates</button>
+        </div>
+      </div>
+
+      <!-- Comprehensive 44+ Role Discovery Across All Disciplines & Search Bar -->
+      <div class="role-search-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
+          <div style="font-size:15px; font-weight:600; color:var(--apple-ink);">
+            Explore Benchmark Roles (<span id="roleCountLabel">44 Roles Across All Fields</span>)
+          </div>
+          <div style="font-size:13px; color:var(--apple-ink-muted-48);">
+            Click any role or search across Engineering (Mech, Civil, EEE), Commerce, Finance, HR, Tech
+          </div>
+        </div>
+
+        <!-- Search Input -->
+        <div class="role-search-input-wrap">
+          <span class="search-glyph">🔍</span>
+          <input type="text" id="roleSearchInput" class="role-search-input" placeholder="Search 44+ roles across Mech, Civil, Electrical, Chemical, Commerce, CA, Finance, HR, Marketing, Software, AI, Legal...">
+        </div>
+
+        <!-- Domain Filter Buttons (Dynamically Populated by app.js) -->
+        <div class="domain-filter-strip" id="domainFilterStrip"></div>
+
+        <!-- Dynamic Filtered Role Chips -->
+        <div class="configurator-strip" id="roleConfiguratorStrip"></div>
+      </div>
+
+      <!-- Active Benchmark Position Specification Card -->
+      <div class="benchmark-spec-card">
+        <div class="benchmark-spec-top">
+          <h2 id="jdDetailTitle" class="benchmark-spec-title">Senior NLP & Machine Learning Engineer</h2>
+          <span id="jdDomainTag" class="benchmark-spec-domain">AI & Machine Learning • 4+ yrs exp</span>
+        </div>
+        <p id="jdSnippet" class="benchmark-spec-desc"></p>
+        <div class="benchmark-skills-row">
+          <span style="font-size:13px; font-weight:600; color:var(--apple-ink-muted-80); margin-right:6px;">Required Competencies:</span>
+          <div id="jdSkillsChips" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
+        </div>
+      </div>
+
+      <!-- Candidate Grid (Apple Store Utility Cards) -->
+      <div id="candidatesContainer" class="candidate-grid-apple"></div>
+
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- TILE 2: NEAR-BLACK TILE 1 (#272729) — ATS RESUME HEALTH CHECKER       -->
+  <!-- ===================================================================== -->
+  <section id="ats-section" class="apple-tile tile-dark">
+    <div class="container">
+      
+      <!-- Headline Stack (Dark Tile) -->
+      <div class="tile-headline-stack">
+        <div class="tile-category-tag on-dark">Automated Resume Calibration</div>
+        <h2 class="tile-display-title" style="color:#ffffff;">ATS Resume Health & Score.</h2>
+        <p class="tile-lead-subcopy on-dark">
+          Upload any curriculum vitae in PDF, Word (.docx), or Text format. Calibrate and match against any role in real-time.
+        </p>
+      </div>
+
+      <div class="ats-panel-wrapper">
+
+        <!-- Target Role Selection & Live Searchable Combobox in ATS Section -->
+        <div class="ats-role-benchmark-bar">
+          <div class="ats-role-info-side">
+            <div class="ats-role-benchmark-label">Calibrate Resume Against Target Role:</div>
+            <div style="font-size:12.5px; color:var(--apple-body-muted); margin-top:2px;">
+              Type to instantly search or select across 44 benchmark positions in Engineering, Commerce, Finance & Tech
+            </div>
+          </div>
+          
+          <div class="ats-combobox-wrap" id="atsComboboxWrap">
+            <!-- Searchable Trigger Input -->
+            <div class="ats-search-trigger-box" id="atsSearchTriggerBox">
+              <span class="ats-search-icon">🔍</span>
+              <input 
+                type="text" 
+                id="atsRoleSearchInput" 
+                class="ats-role-search-input" 
+                placeholder="Type to search role (e.g. Mech, Civil, CA, Python, HR)..." 
+                autocomplete="off"
+                spellcheck="false"
+              >
+              <button type="button" id="atsRoleClearBtn" class="ats-combobox-clear-btn" title="Clear search" style="display:none;">✕</button>
+              <button type="button" id="atsRoleDropdownToggle" class="ats-combobox-arrow-btn" aria-label="Toggle role list">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+            </div>
+
+            <!-- Custom Floating Dropdown Menu -->
+            <div class="ats-combobox-dropdown" id="atsComboboxDropdown">
+              <div class="ats-dropdown-header">
+                <span id="atsDropdownCountLabel">44 Roles Available</span>
+                <span style="font-size:11px; color:#86868b;">Select or type</span>
+              </div>
+              <div class="ats-dropdown-scroll" id="atsDropdownScroll"></div>
+            </div>
+
+            <!-- Hidden native select for sync/fallback -->
+            <select id="atsTargetJdSelect" style="display:none;"></select>
+          </div>
+        </div>
+        
+        <!-- Apple Drag & Drop Zone -->
+        <div class="apple-dropzone-box" id="dropzoneContainer">
+          <input type="file" id="resumeFileInput" accept=".pdf,.docx,.txt" style="display:none;">
+          <div class="dropzone-icon-circle">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          </div>
+          <div class="dropzone-title">Drop your resume here, or browse</div>
+          <div class="dropzone-subcopy">Secure client-side document extraction • PDF, DOCX, and TXT supported</div>
+          <div class="dropzone-format-tags">
+            <span class="dropzone-format-tag">.PDF</span>
+            <span class="dropzone-format-tag">.DOCX</span>
+            <span class="dropzone-format-tag">.TXT</span>
+          </div>
+        </div>
+
+        <!-- 1-Click Sample Resume Option -->
+        <div class="sample-resume-trigger-bar">
+          <span>Don't have a file handy?</span>
+          <button class="sample-pill-btn" id="loadSampleResumeBtn">✨ Test with Sample Candidate Resume (Senior NLP)</button>
+        </div>
+
+        <!-- Uploaded File Banner -->
+        <div id="uploadedFileBanner" class="file-uploaded-dark-strip">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="font-size:22px;">📄</div>
+            <div>
+              <div style="font-weight:600; color:#ffffff; font-size:15px;" id="uploadedFileName">resume.pdf</div>
+              <div style="font-size:13px; color:#34c759;" id="uploadedFileMeta">Parsed successfully</div>
+            </div>
+          </div>
+          <button id="reuploadBtn" class="apple-btn-dark-utility">Replace File</button>
+        </div>
+
+        <!-- ATS Diagnostic Dashboard Grid -->
+        <div id="atsResultsGrid" class="ats-results-layout">
+          
+          <!-- Left Column: Circular SVG Gauge with The Single Product Shadow -->
+          <div class="ats-gauge-pedestal">
+            <div class="svg-gauge-box">
+              <svg viewBox="0 0 140 140">
+                <circle class="gauge-bg-circle" cx="70" cy="70" r="60"></circle>
+                <circle class="gauge-fill-circle" id="svgGaugeFill" cx="70" cy="70" r="60"></circle>
+              </svg>
+              <div class="gauge-center-text">
+                <span class="gauge-score-digits" id="atsScoreVal">--</span>
+                <span class="gauge-max-digits">/ 100</span>
+              </div>
+            </div>
+
+            <div class="ats-verdict-chip pass" id="atsStatusBadge">Analyzing...</div>
+
+            <div class="ats-quick-metrics-table">
+              <div class="quick-metric-row">
+                <span>Total Words:</span>
+                <strong id="atsStatWords">--</strong>
+              </div>
+              <div class="quick-metric-row">
+                <span>Action Verbs:</span>
+                <strong id="atsStatVerbs">--</strong>
+              </div>
+              <div class="quick-metric-row">
+                <span>Metrics (%/$):</span>
+                <strong id="atsStatMetrics">--</strong>
+              </div>
+              <div class="quick-metric-row">
+                <span>Skills Satisfied:</span>
+                <strong id="atsStatSkills">--</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: 4 Diagnostic Category Cards -->
+          <div class="ats-breakdown-column">
+            
+            <!-- Category 1: Structure -->
+            <div class="ats-audit-card">
+              <div class="audit-card-head">
+                <h3 class="audit-card-title">1. Resume Sections & Architecture</h3>
+                <span class="audit-card-pts" id="scoreCatSections">-- / 25 pts</span>
+              </div>
+              <div id="sectionChecklistItems"></div>
+            </div>
+
+            <!-- Category 2: Keywords -->
+            <div class="ats-audit-card">
+              <div class="audit-card-head">
+                <h3 class="audit-card-title">2. Target Role Keyword Alignment</h3>
+                <span class="audit-card-pts" id="scoreCatKeywords">-- / 35 pts</span>
+              </div>
+              <div style="margin-bottom:14px;">
+                <div style="font-size:12px; font-weight:600; color:var(--apple-body-muted); text-transform:uppercase; margin-bottom:6px;">Matched Keywords in Resume:</div>
+                <div id="atsMatchedSkillsPills" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
+              </div>
+              <div>
+                <div style="font-size:12px; font-weight:600; color:#ff9f0a; text-transform:uppercase; margin-bottom:6px;">Missing Role Keywords (Recommended to add):</div>
+                <div id="atsMissingSkillsPills" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
+              </div>
+            </div>
+
+            <!-- Category 3: Action Verbs -->
+            <div class="ats-audit-card">
+              <div class="audit-card-head">
+                <h3 class="audit-card-title">3. High-Impact Action Verbs & Metrics</h3>
+                <span class="audit-card-pts" id="scoreCatImpact">-- / 20 pts</span>
+              </div>
+              <div id="atsImpactDetails" style="font-size:14px; color:var(--apple-body-muted); line-height:1.5;"></div>
+            </div>
+
+            <!-- Category 4: Readability -->
+            <div class="ats-audit-card">
+              <div class="audit-card-head">
+                <h3 class="audit-card-title">4. Document Length & Formatting Safety</h3>
+                <span class="audit-card-pts" id="scoreCatLength">-- / 20 pts</span>
+              </div>
+              <div id="atsLengthDetails" style="font-size:14px; color:var(--apple-body-muted);"></div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- TILE 3: PARCHMENT (#f5f5f7) — TRI-PARTITE MATHEMATICAL CALIBRATION    -->
+  <!-- ===================================================================== -->
+  <section id="calibration-section" class="apple-tile tile-parchment">
+    <div class="container">
+      
+      <!-- Headline Stack -->
+      <div class="tile-headline-stack">
+        <div class="tile-category-tag">Mathematical Calibration</div>
+        <h2 class="tile-display-title">Tri-Partite Formula.</h2>
+        <p class="tile-lead-subcopy">
+          Tune the relative influence of deep semantics, lexical keywords, and hard skills with real-time recalculation.
+        </p>
+      </div>
+
+      <div class="calibration-card-apple">
+        <div class="calib-header-apple">
+          <div>
+            <h3 style="font-size:19px; font-weight:600; color:var(--apple-ink);">Weight Parameters</h3>
+            <p style="font-size:14px; color:var(--apple-ink-muted-48);">Normalized composite score calculation</p>
+          </div>
+          <div class="formula-chip-apple">S = α·S_sem + β·S_lex + γ·S_skill</div>
+        </div>
+
+        <div class="apple-slider-group">
+          <div class="apple-slider-label-row">
+            <span>Dense Contextual Semantic Weight (α) — Sentence-BERT</span>
+            <span id="valAlpha" style="font-family:var(--font-mono);">50%</span>
+          </div>
+          <input type="range" id="sliderAlpha" class="apple-range-input" min="0" max="1" step="0.05" value="0.50">
+          <p style="font-size:13px; color:var(--apple-ink-muted-48); margin-top:6px;">Weights 384-dimensional bi-encoder sentence representations with section pooling.</p>
+        </div>
+
+        <div class="apple-slider-group">
+          <div class="apple-slider-label-row">
+            <span>Lexical Exact-Match Weight (β) — Okapi BM25</span>
+            <span id="valBeta" style="font-family:var(--font-mono);">20%</span>
+          </div>
+          <input type="range" id="sliderBeta" class="apple-range-input" min="0" max="1" step="0.05" value="0.20">
+          <p style="font-size:13px; color:var(--apple-ink-muted-48); margin-top:6px;">Weights document frequency saturation and query-term density.</p>
+        </div>
+
+        <div class="apple-slider-group">
+          <div class="apple-slider-label-row">
+            <span>Explicit Hard Skills Weight (γ) — 350+ Technology Taxonomy</span>
+            <span id="valGamma" style="font-family:var(--font-mono);">30%</span>
+          </div>
+          <input type="range" id="sliderGamma" class="apple-range-input" min="0" max="1" step="0.05" value="0.30">
+          <p style="font-size:13px; color:var(--apple-ink-muted-48); margin-top:6px;">Guarantees mandatory technical competency verification.</p>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; margin-top:16px;">
+          <button id="resetWeightsBtn" class="apple-btn-pearl">Reset to Optimal Baseline</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- TILE 4: NEAR-BLACK TILE 2 (#2a2a2c) — ANTI-SPAM & SECURITY AUDIT      -->
+  <!-- ===================================================================== -->
+  <section id="security-section" class="apple-tile tile-dark-2">
+    <div class="container">
+      
+      <!-- Headline Stack -->
+      <div class="tile-headline-stack">
+        <div class="tile-category-tag on-dark">Adversarial Defense & Security</div>
+        <h2 class="tile-display-title" style="color:#ffffff;">Anti-Spam Verification.</h2>
+        <p class="tile-lead-subcopy on-dark">
+          How bi-encoder semantics defeat keyword stuffing and prompt injection attacks that compromise legacy ATS platforms.
+        </p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:32px;">
+        <div class="ats-audit-card">
+          <div style="font-size:12px; font-weight:600; color:#ff453a; text-transform:uppercase; margin-bottom:8px;">Vulnerability in Legacy ATS</div>
+          <h3 style="font-size:18px; font-weight:600; color:#ffffff; margin-bottom:10px;">Keyword Stuffing Attack</h3>
+          <p style="font-size:14px; color:var(--apple-body-muted); line-height:1.5;">
+            An adversarial candidate pastes 50+ technology terms in 0pt font or white text. Pure lexical matching awards them Rank #1 (98.4%), displacing genuine engineers.
+          </p>
+        </div>
+
+        <div class="ats-audit-card">
+          <div style="font-size:12px; font-weight:600; color:#30d158; text-transform:uppercase; margin-bottom:8px;">TalentMatch Tri-Partite Protection</div>
+          <h3 style="font-size:18px; font-weight:600; color:#ffffff; margin-bottom:10px;">Contextual Vector Verification</h3>
+          <p style="font-size:14px; color:var(--apple-body-muted); line-height:1.5;">
+            Sentence-BERT bi-encoders evaluate grammatical coherence, sentence structure, and work history context. The spammer's semantic score collapses to 11.2%, dropping them to bottom tier.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- TILE 5: PURE WHITE (#ffffff) — ACADEMIC DELIVERABLES & RESEARCH       -->
+  <!-- ===================================================================== -->
+  <section id="deliverables-section" class="apple-tile tile-white">
+    <div class="container">
+      
+      <!-- Headline Stack -->
+      <div class="tile-headline-stack">
+        <div class="tile-category-tag">Academic Research & Repositories</div>
+        <h2 class="tile-display-title">Official Deliverables.</h2>
+        <p class="tile-lead-subcopy">
+          Download the peer-reviewed IEEE research paper, university project report, and executable Jupyter notebook.
+        </p>
+      </div>
+
+      <div class="deliverables-grid-apple">
+        
+        <a href="Research_Paper_NLP_Resume_Matching.docx" download class="deliverable-card-apple">
+          <div>
+            <div class="deliverable-icon-sq">📄</div>
+            <div class="deliverable-title">IEEE Research Paper</div>
+            <div class="deliverable-sub">Formal research paper with mathematical derivations, bi-encoder architecture, and 22 academic citations.</div>
+          </div>
+          <span class="deliverable-download-link">Download Word DOCX ↓</span>
+        </a>
+
+        <a href="Project_Report_NLP_Resume_Matching.docx" download class="deliverable-card-apple">
+          <div>
+            <div class="deliverable-icon-sq">📘</div>
+            <div class="deliverable-title">Mini-Project Report</div>
+            <div class="deliverable-sub">University curriculum report with college certification, 6 comprehensive chapters, and experimental validation.</div>
+          </div>
+          <span class="deliverable-download-link">Download Report DOCX ↓</span>
+        </a>
+
+        <a href="NLP_Resume_Matching_System.ipynb" download class="deliverable-card-apple">
+          <div>
+            <div class="deliverable-icon-sq">📓</div>
+            <div class="deliverable-title">Google Colab Notebook</div>
+            <div class="deliverable-sub">1-click runnable Jupyter notebook executing BERT embeddings, BM25 ranking, and NDCG evaluations.</div>
+          </div>
+          <span class="deliverable-download-link">Download Notebook .ipynb ↓</span>
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- FOOTER (Parchment #f5f5f7, 56px padding, clean academic links)        -->
+  <!-- ===================================================================== -->
+  <footer class="apple-footer">
+    <div class="container">
+      <div class="apple-footer-grid">
+        
+        <!-- Col 1: Academic Details -->
+        <div>
+          <div class="footer-col-title">Academic Attribution</div>
+          <p style="font-size:14px; line-height:1.6; color:var(--apple-ink-muted-80); margin-bottom:10px;">
+            <strong>Patel Aum Shirishkumar</strong> (12302040601004)<br>
+            B.Tech Sem 7 Computer Engineering<br>
+            Department of Computer Engineering<br>
+            A. D. Patel Institute of Technology (CVM University)
+          </p>
+          <p style="font-size:13px; color:var(--apple-ink-muted-48);">
+            Subject: Natural Language Processing (202047809)
+          </p>
+        </div>
+
+        <!-- Col 2: NLP Components -->
+        <div>
+          <div class="footer-col-title">Core Methodologies</div>
+          <ul class="footer-dense-links">
+            <li class="footer-dense-link-item"><a href="#pipeline-section">Dense Bi-Encoder (S-BERT)</a></li>
+            <li class="footer-dense-link-item"><a href="#pipeline-section">Lexical Ranking (Okapi BM25)</a></li>
+            <li class="footer-dense-link-item"><a href="#calibration-section">Skill Ontology (350+ Concepts)</a></li>
+            <li class="footer-dense-link-item"><a href="#security-section">Adversarial Resistance</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Research Navigation -->
+        <div>
+          <div class="footer-col-title">Deliverables</div>
+          <ul class="footer-dense-links">
+            <li class="footer-dense-link-item"><a href="Research_Paper_NLP_Resume_Matching.docx" download>IEEE Research Paper</a></li>
+            <li class="footer-dense-link-item"><a href="Project_Report_NLP_Resume_Matching.docx" download>Mini-Project Report</a></li>
+            <li class="footer-dense-link-item"><a href="NLP_Resume_Matching_System.ipynb" download>Google Colab Notebook</a></li>
+            <li class="footer-dense-link-item"><a href="#ats-section">ATS Health Checker</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Legal Bottom Row -->
+      <div class="footer-legal-row">
+        <div>
+          Copyright © 2026 Patel Aum Shirishkumar (12302040601004). All rights reserved. Department of Computer Engineering, A. D. Patel Institute of Technology, CVM University.
+        </div>
+        <div>
+          Subject: Natural Language Processing (202047809)
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- CANDIDATE DETAIL OFFCANVAS DRAWER                                     -->
+  <!-- ===================================================================== -->
+  <div class="apple-drawer-backdrop" id="drawerBackdrop">
+    <div class="apple-drawer-sheet">
+      <div class="drawer-head-apple">
+        <div>
+          <h3 id="drawerCandidateName" style="font-size:22px; font-weight:600; color:var(--apple-ink);">Candidate Profile</h3>
+          <p id="drawerCandidateMeta" style="font-size:14px; color:var(--apple-ink-muted-48); margin-top:2px;"></p>
+        </div>
+        <button id="closeDrawerBtn" class="drawer-close-circle">✕</button>
+      </div>
+
+      <div class="drawer-content">
+        <!-- Score Highlights -->
+        <div style="background:var(--apple-canvas-parchment); border-radius:var(--radius-md); padding:20px; margin-bottom:24px; display:flex; justify-content:space-around; text-align:center;">
+          <div>
+            <div style="font-family:var(--font-display); font-size:26px; font-weight:600; color:var(--apple-primary);" id="drawerScoreHybrid">--</div>
+            <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:var(--apple-ink-muted-48); margin-top:4px;">Hybrid Match</div>
+          </div>
+          <div>
+            <div style="font-family:var(--font-mono); font-size:20px; font-weight:600; color:var(--apple-ink);" id="drawerScoreSemantic">--</div>
+            <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:var(--apple-ink-muted-48); margin-top:4px;">S-BERT Semantic</div>
+          </div>
+          <div>
+            <div style="font-family:var(--font-mono); font-size:20px; font-weight:600; color:var(--apple-ink);" id="drawerScoreLexical">--</div>
+            <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:var(--apple-ink-muted-48); margin-top:4px;">BM25 Lexical</div>
+          </div>
+        </div>
+
+        <!-- Matched Skills -->
+        <div style="margin-bottom:22px;">
+          <h4 style="font-size:14px; font-weight:600; text-transform:uppercase; color:var(--apple-ink-muted-80); margin-bottom:10px;">Mandatory Skills Satisfied</h4>
+          <div id="drawerMatchedSkills" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
+        </div>
+
+        <!-- Missing Skills -->
+        <div style="margin-bottom:22px;">
+          <h4 style="font-size:14px; font-weight:600; text-transform:uppercase; color:#c62828; margin-bottom:10px;">Missing Skills</h4>
+          <div id="drawerMissingSkills" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
+        </div>
+
+        <!-- Raw Text Preview -->
+        <div>
+          <h4 style="font-size:14px; font-weight:600; text-transform:uppercase; color:var(--apple-ink-muted-80); margin-bottom:10px;">Parsed Document Content</h4>
+          <pre id="drawerResumeText" style="background:var(--apple-canvas-parchment); border-radius:var(--radius-sm); padding:16px; font-family:var(--font-mono); font-size:12px; color:var(--apple-ink); white-space:pre-wrap; max-height:280px; overflow-y:auto; line-height:1.6;"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

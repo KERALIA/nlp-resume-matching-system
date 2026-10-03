@@ -1,0 +1,23 @@
+{
+  "programming_languages": [
+    "python", "javascript", "typescript", "c++", "c#", "java", "golang", "go", "rust", "ruby", "php", "swift", "kotlin", "scala", "r", "julia", "sql", "bash", "shell"
+  ],
+  "machine_learning_and_ai": [
+    "machine learning", "deep learning", "natural language processing", "nlp", "computer vision", "transformers", "bert", "sentence-bert", "sbert", "gpt", "large language models", "llm", "rag", "langchain", "pytorch", "tensorflow", "keras", "scikit-learn", "xgboost", "lightgbm", "spacy", "nltk", "huggingface", "opencv", "feature engineering", "hyperparameter tuning", "mlops", "data science"
+  ],
+  "web_and_backend_frameworks": [
+    "react", "react.js", "next.js", "vue", "angular", "node.js", "express", "fastapi", "flask", "django", "spring boot", "asp.net", "graphql", "rest api", "grpc", "microservices", "html5", "css3", "tailwind css", "bootstrap"
+  ],
+  "cloud_and_devops": [
+    "aws", "amazon web services", "azure", "google cloud platform", "gcp", "docker", "kubernetes", "k8s", "terraform", "ansible", "ci/cd", "jenkins", "github actions", "gitlab ci", "helm", "prometheus", "grafana", "linux", "cloudformation"
+  ],
+  "databases_and_data_engineering": [
+    "postgresql", "mysql", "mongodb", "redis", "elasticsearch", "cassandra", "snowflake", "bigquery", "apache spark", "spark", "apache kafka", "kafka", "airflow", "hadoop", "neo4j", "sqlite"
+  ],
+  "cybersecurity": [
+    "penetration testing", "vulnerability assessment", "owasp", "siem", "soc", "wireshark", "cryptography", "iam", "zero trust", "network security", "incident response", "burp suite", "metasploit"
+  ],
+  "system_and_software_engineering": [
+    "distributed systems", "data structures", "algorithms", "system design", "object oriented programming", "oop", "design patterns", "multithreading", "agile", "scrum", "git", "unit testing", "tdd"
+  ]
+}

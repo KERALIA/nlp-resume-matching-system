@@ -1,0 +1,263 @@
+[
+  {
+    "id": "RES_NLP_01",
+    "name": "Aarav Sharma",
+    "target_domain": "Machine Learning",
+    "years_experience": 5,
+    "education": "M.S. in Computer Science (Artificial Intelligence), Stanford University, 2021",
+    "summary": "Senior NLP Engineer with 5 years of industry experience architecting deep learning language models, transformers, and dense retrieval systems. Proven track record deploying Sentence-BERT embeddings into production vector databases.",
+    "skills": ["python", "pytorch", "transformers", "bert", "sentence-bert", "spacy", "huggingface", "fastapi", "docker", "natural language processing", "scikit-learn", "git"],
+    "experience": [
+      "Staff ML Engineer at Synapse AI (2022 - Present): Designed and deployed multi-lingual semantic search processing 12M daily queries using fine-tuned all-MiniLM-L6-v2 embeddings and FAISS index. Reduced query latency by 42%.",
+      "NLP Research Engineer at Cognitive Labs (2020 - 2022): Fine-tuned RoBERTa and DeBERTa architectures for domain-specific named entity recognition (NER) in biomedical texts, achieving 94.2% F1 score."
+    ],
+    "projects": [
+      "Dense Neural Ranker: End-to-end bi-encoder for semantic query-document matching built with PyTorch and HuggingFace, served via FastAPI and Dockerized microservices."
+    ]
+  },
+  {
+    "id": "RES_NLP_02",
+    "name": "Priya Nair",
+    "target_domain": "Machine Learning",
+    "years_experience": 4,
+    "education": "B.Tech in Computer Engineering, National Institute of Technology, 2020",
+    "summary": "Machine Learning Engineer specializing in Natural Language Processing, text representation, transformer fine-tuning, and semantic similarity engines. Experienced in PyTorch, Scikit-Learn, and MLOps pipelines.",
+    "skills": ["python", "natural language processing", "pytorch", "transformers", "bert", "scikit-learn", "docker", "rest api", "mlops", "langchain"],
+    "experience": [
+      "Machine Learning Engineer at LinguaTech (2021 - Present): Developed contextual document classification and similarity scoring pipelines using HuggingFace Transformers and Scikit-Learn. Containerized models using Docker.",
+      "Data Science Associate at Fractal (2020 - 2021): Implemented TF-IDF and Word2Vec baselines for internal knowledge retrieval engine; upgraded infrastructure to dense contextual embeddings."
+    ],
+    "projects": [
+      "RAG Q&A Assistant: LangChain and PyTorch pipeline leveraging BERT embeddings and vector retrieval for customer support automation."
+    ]
+  },
+  {
+    "id": "RES_NLP_03",
+    "name": "Rohan Deshmukh",
+    "target_domain": "Machine Learning",
+    "years_experience": 2,
+    "education": "B.E. in Information Technology, Mumbai University, 2022",
+    "summary": "Junior NLP Practitioner with foundational knowledge of text processing, tokenization, PyTorch, and classical machine learning algorithms.",
+    "skills": ["python", "natural language processing", "scikit-learn", "spacy", "nltk", "rest api", "git"],
+    "experience": [
+      "Junior NLP Developer at AI Solutions (2022 - Present): Maintained text cleaning pipelines with NLTK and SpaCy, trained baseline logistic regression and random forest sentiment classifiers."
+    ],
+    "projects": [
+      "Resume Parser: Extracted candidate contact details and skills using regular expressions and SpaCy entity recognition."
+    ]
+  },
+  {
+    "id": "RES_DS_01",
+    "name": "Neha Kulkarni",
+    "target_domain": "Data Science",
+    "years_experience": 5,
+    "education": "M.S. in Applied Statistics, Indian Statistical Institute, 2019",
+    "summary": "Senior Data Scientist with extensive background in predictive statistical modeling, feature engineering, SQL data pipelines, and tree-based ensemble algorithms.",
+    "skills": ["python", "sql", "scikit-learn", "xgboost", "lightgbm", "machine learning", "feature engineering", "data science", "snowflake", "bigquery"],
+    "experience": [
+      "Lead Data Scientist at FinAnalytics (2021 - Present): Architected customer churn and credit risk models using XGBoost and LightGBM over Snowflake data warehouses, handling 50M+ records. Improved AUC-ROC from 0.76 to 0.88.",
+      "Data Scientist at Mu Sigma (2019 - 2021): Conducted rigorous A/B hypothesis testing, multivariate regression, and cohort analysis."
+    ],
+    "projects": [
+      "Financial Fraud Detection: Built real-time feature engineering pipeline in SQL and Scikit-Learn with automated drift detection."
+    ]
+  },
+  {
+    "id": "RES_DS_02",
+    "name": "Vikram Mehta",
+    "target_domain": "Data Science",
+    "years_experience": 3,
+    "education": "B.Tech in Data Science, CVM University, 2021",
+    "summary": "Data Scientist passionate about predictive analytics, statistical inference, feature engineering, and exploratory data visualization.",
+    "skills": ["python", "sql", "machine learning", "scikit-learn", "xgboost", "data science", "feature engineering", "r"],
+    "experience": [
+      "Data Scientist at RetailPulse (2021 - Present): Developed demand forecasting models using Scikit-Learn and XGBoost, writing automated SQL extraction queries for PostgreSQL."
+    ],
+    "projects": [
+      "Customer Lifetime Value Predictor: Applied gradient boosting and survival analysis to predict subscription churn."
+    ]
+  },
+  {
+    "id": "RES_WEB_01",
+    "name": "Aditya Varma",
+    "target_domain": "Web Development",
+    "years_experience": 5,
+    "education": "B.Tech in Computer Engineering, ADIT, 2020",
+    "summary": "Senior Full-Stack Engineer with 5 years of mastery in React, TypeScript, Node.js microservices, and PostgreSQL database optimization.",
+    "skills": ["javascript", "typescript", "react", "node.js", "next.js", "express", "postgresql", "rest api", "html5", "css3", "tailwind css", "redis", "docker", "git"],
+    "experience": [
+      "Senior Frontend/Fullstack Engineer at CloudApp (2022 - Present): Led migration of monolithic web dashboard to Next.js and React 18 with TypeScript. Reduced bundle size by 35% and increased Lighthouse score to 98.",
+      "Full-Stack Developer at TechCraft (2020 - 2022): Developed RESTful endpoints using Node.js, Express, and PostgreSQL, implemented Redis caching layers for high-volume endpoints."
+    ],
+    "projects": [
+      "Enterprise SaaS Dashboard: Multi-tenant React, TypeScript, and Node.js platform with real-time WebSocket state management."
+    ]
+  },
+  {
+    "id": "RES_WEB_02",
+    "name": "Ananya Joshi",
+    "target_domain": "Web Development",
+    "years_experience": 3,
+    "education": "B.E. in Information Technology, Pune University, 2021",
+    "summary": "Full-Stack Web Developer skilled in React component hierarchies, TypeScript type safety, Node.js API development, and relational database schemas.",
+    "skills": ["javascript", "typescript", "react", "node.js", "rest api", "postgresql", "html5", "css3", "git", "graphql"],
+    "experience": [
+      "Full-Stack Developer at WebX (2021 - Present): Built consumer-facing e-commerce storefronts using React and TypeScript; developed GraphQL and REST microservices in Node.js."
+    ],
+    "projects": [
+      "CollabBoard: Interactive real-time whiteboard utilizing React, Node.js, and PostgreSQL."
+    ]
+  },
+  {
+    "id": "RES_WEB_03",
+    "name": "Siddharth Rao",
+    "target_domain": "Web Development",
+    "years_experience": 2,
+    "education": "BCA, Gujarat University, 2022",
+    "summary": "Junior Frontend Web Developer passionate about clean responsive UI/UX, React, JavaScript, and HTML5/CSS3.",
+    "skills": ["javascript", "react", "html5", "css3", "tailwind css", "git", "rest api"],
+    "experience": [
+      "Junior Web Developer at PixelMinds (2022 - Present): Converted Figma designs into modular React components with Tailwind CSS."
+    ],
+    "projects": [
+      "Portfolio & Blog Engine: Static site generator built with React and Tailwind CSS."
+    ]
+  },
+  {
+    "id": "RES_DEVOPS_01",
+    "name": "Karan Singhania",
+    "target_domain": "Cloud & DevOps",
+    "years_experience": 6,
+    "education": "B.Tech in Computer Science, IIT Roorkee, 2018",
+    "summary": "Lead Cloud Infrastructure & DevOps Architect. Expert in AWS multi-account governance, Kubernetes cluster lifecycle, Terraform automation, and observability with Prometheus.",
+    "skills": ["aws", "kubernetes", "docker", "terraform", "ci/cd", "linux", "bash", "prometheus", "grafana", "helm", "ansible", "python", "git"],
+    "experience": [
+      "Principal DevOps Engineer at HyperScale (2021 - Present): Designed multi-region Kubernetes (EKS) infrastructure provisioned via Terraform modules. Orchestrated zero-downtime Canary deployments with ArgoCD and Helm.",
+      "Site Reliability Engineer at MediaNet (2018 - 2021): Configured Linux server hardening, automated CI/CD pipelines via GitLab CI, and instituted SLI/SLO dashboards in Prometheus and Grafana."
+    ],
+    "projects": [
+      "GitOps Cloud Platform: Declarative Infrastructure-as-Code ecosystem managing 400+ AWS microservices via Terraform and Kubernetes."
+    ]
+  },
+  {
+    "id": "RES_DEVOPS_02",
+    "name": "Divya Patel",
+    "target_domain": "Cloud & DevOps",
+    "years_experience": 4,
+    "education": "B.Tech in Information Technology, CVM University, 2020",
+    "summary": "DevOps Engineer with deep expertise in Docker containerization, Kubernetes operations, AWS cloud services, and CI/CD automation.",
+    "skills": ["aws", "kubernetes", "docker", "terraform", "ci/cd", "linux", "bash", "prometheus", "grafana", "jenkins"],
+    "experience": [
+      "DevOps Engineer at CoreInfra (2020 - Present): Maintained Jenkins and GitHub Actions pipelines for automated builds and testing. Automated AWS EC2 and RDS provisioning using Terraform."
+    ],
+    "projects": [
+      "K8s Auto-Scaler: Custom horizontal pod autoscaler integrated with Prometheus metrics."
+    ]
+  },
+  {
+    "id": "RES_DEVOPS_03",
+    "name": "Harshil Bhatt",
+    "target_domain": "Cloud & DevOps",
+    "years_experience": 2,
+    "education": "B.Tech in Computer Engineering, ADIT, 2022",
+    "summary": "Associate Cloud Engineer working with Docker containers, Linux system administration, and basic AWS cloud services.",
+    "skills": ["docker", "linux", "bash", "aws", "git", "ci/cd"],
+    "experience": [
+      "Cloud Operations Associate at CloudEase (2022 - Present): Wrote Dockerfiles, created bash automation scripts, and monitored server health."
+    ],
+    "projects": [
+      "Containerized LAMP Stack: Multi-container Docker Compose setup for web deployment."
+    ]
+  },
+  {
+    "id": "RES_SEC_01",
+    "name": "Farhan Akhtar",
+    "target_domain": "Cybersecurity",
+    "years_experience": 5,
+    "education": "B.Tech in Cyber Security, Gujarat Technological University, 2019",
+    "summary": "Information Security Analyst and Penetration Tester with OSCP and CEH certifications. Experienced in SIEM telemetry, OWASP Top 10 web vulnerabilities, and incident response.",
+    "skills": ["vulnerability assessment", "penetration testing", "owasp", "siem", "network security", "incident response", "wireshark", "burp suite", "metasploit", "python", "linux"],
+    "experience": [
+      "Senior SOC Analyst at DefendZero (2021 - Present): Monitored 24/7 SIEM feeds, conducted forensic triage on security incidents, and executed Red Team penetration tests against critical web APIs using Burp Suite.",
+      "Security Analyst at CyberShield (2019 - 2021): Performed static and dynamic vulnerability assessments, network packet inspection with Wireshark, and enforced IAM policies."
+    ],
+    "projects": [
+      "Automated Threat Intelligence Scraper: Python tool aggregating CVE indicators of compromise into local SIEM."
+    ]
+  },
+  {
+    "id": "RES_SEC_02",
+    "name": "Zoya Merchant",
+    "target_domain": "Cybersecurity",
+    "years_experience": 3,
+    "education": "B.E. in Information Technology, Mumbai University, 2021",
+    "summary": "Cybersecurity Analyst specializing in vulnerability management, OWASP testing, network intrusion detection, and incident response.",
+    "skills": ["vulnerability assessment", "penetration testing", "owasp", "siem", "network security", "incident response", "wireshark", "linux", "burp suite"],
+    "experience": [
+      "Security Consultant at SecureByte (2021 - Present): Evaluated client web portals for OWASP vulnerabilities, analyzed network packet captures using Wireshark, and generated audit remediation reports."
+    ],
+    "projects": [
+      "Vulnerability Audit Framework: Python and Bash scripts automating Nessus and Nmap scans."
+    ]
+  },
+  {
+    "id": "RES_BACKEND_01",
+    "name": "Rahul Verma",
+    "target_domain": "Backend Systems",
+    "years_experience": 4,
+    "education": "B.Tech in Computer Engineering, ADIT, 2020",
+    "summary": "Backend Systems Engineer specialized in high-performance distributed microservices, Java Spring Boot, REST APIs, PostgreSQL, and Docker.",
+    "skills": ["java", "spring boot", "rest api", "postgresql", "docker", "microservices", "redis", "distributed systems", "git", "unit testing"],
+    "experience": [
+      "Backend Engineer at PayGate (2020 - Present): Developed transaction processing microservices in Java Spring Boot handling 1,500 req/sec. Optimized PostgreSQL queries and implemented Redis caching."
+    ],
+    "projects": [
+      "Distributed Rate Limiter: Token bucket rate limiter built with Java, Redis, and Spring Boot."
+    ]
+  },
+  {
+    "id": "RES_MOBILE_01",
+    "name": "Manish Gupta",
+    "target_domain": "Mobile Development",
+    "years_experience": 3,
+    "education": "B.E. in Computer Engineering, Pune University, 2021",
+    "summary": "Mobile Application Developer specializing in native Android Kotlin and cross-platform Flutter applications.",
+    "skills": ["kotlin", "java", "android", "rest api", "git", "sqlite", "object oriented programming"],
+    "experience": [
+      "Mobile App Developer at AppWave (2021 - Present): Published 4 Android applications on Google Play Store with 100K+ downloads using Kotlin and MVVM architecture."
+    ],
+    "projects": [
+      "FinTrack Android App: Personal expense tracker with SQLite offline sync and biometric authentication."
+    ]
+  },
+  {
+    "id": "RES_SYNONYM_01",
+    "name": "Dr. Sameer Sen",
+    "target_domain": "Machine Learning",
+    "years_experience": 6,
+    "education": "Ph.D. in Computational Linguistics, University of Edinburgh, 2018",
+    "summary": "Staff Computational Linguist with deep theoretical and empirical expertise in statistical language modeling, sequence-to-sequence neural architectures, dense semantic vector spaces, and contextual lexical representations. Proficient in numerical Python scripting, neural network backpropagation engines, and microservice virtualization.",
+    "skills": ["python", "computational linguistics", "deep learning", "neural networks", "sequence modeling", "vector representations", "statistical modeling", "container virtualization"],
+    "experience": [
+      "Lead Research Scientist at Lexicon Dynamics (2019 - Present): Developed non-parametric dense retrieval models utilizing transformer self-attention mechanisms for cross-lingual information extraction. Implemented microservice interfaces for distributed query routing."
+    ],
+    "projects": [
+      "Contextual Vector Retrieval: Algorithmic system mapping unstructured corpus into dense latent semantic spaces with sub-millisecond retrieval."
+    ]
+  },
+  {
+    "id": "RES_CORRUPT_01",
+    "name": "Adversarial Keyword Spammer",
+    "target_domain": "Adversarial / Manipulated",
+    "years_experience": 0,
+    "education": "High School Diploma, 2023",
+    "summary": "python pytorch natural language processing transformers bert sentence-bert spacy huggingface fastapi docker scikit-learn rest api kubernetes mlops langchain react javascript typescript aws terraform ci/cd vulnerability assessment penetration testing owasp siem sql feature engineering xgboost. Best developer ever!",
+    "skills": ["python", "pytorch", "transformers", "bert", "sentence-bert", "spacy", "huggingface", "fastapi", "docker", "scikit-learn", "kubernetes", "aws", "react", "javascript", "sql"],
+    "experience": [
+      "Self Employed: Wrote python pytorch transformers bert sentence-bert spacy huggingface fastapi docker scikit-learn kubernetes code every day in my room."
+    ],
+    "projects": [
+      "Ultimate Keyword Project: Contains python pytorch bert transformers docker kubernetes aws react node.js."
+    ]
+  }
+]
