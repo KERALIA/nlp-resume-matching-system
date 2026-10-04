@@ -110,7 +110,7 @@
       return tokens.filter(t => (!STOPWORDS.has(t) && t.length > 1) || t === 'c' || t === 'r');
     }
 
-    // Section-aware extractor
+    // Section-aware extractor with robust header heuristics
     extractSections(text) {
       const sections = {
         summary: "",
@@ -121,22 +121,42 @@
         other: ""
       };
       let currentSection = "other";
-      const lines = (text || "").split('\n');
+      const lines = (text || "").split(/\r?\n/);
+
+      const summaryPattern = /^(?:professional\s+|career\s+)?(?:summary|profile|about\s+me|objective)(?:\s*:)?$/i;
+      const skillsPattern = /^(?:technical\s+|core\s+)?(?:skills|competencies|technologies|tech\s+stack|expertise|proficiencies)(?:\s*:)?$/i;
+      const experiencePattern = /^(?:professional\s+|work\s+)?(?:experience|employment|work\s+history|career|work\s+background)(?:\s*:)?$/i;
+      const projectsPattern = /^(?:key\s+|featured\s+|academic\s+)?(?:projects|portfolio|initiatives|selected\s+work)(?:\s*:)?$/i;
+      const educationPattern = /^(?:academic\s+)?(?:education|qualifications|academic\s+background|degrees)(?:\s*:)?$/i;
 
       lines.forEach(line => {
-        const stripped = line.trim().toLowerCase();
-        if (["summary", "profile", "about me", "objective", "professional summary"].some(k => stripped.includes(k))) {
-          currentSection = "summary";
-        } else if (["skill", "competenc", "tech stack", "technologies", "core expertise"].some(k => stripped.includes(k))) {
-          currentSection = "skills";
-        } else if (["experience", "employment", "work history", "career", "professional experience"].some(k => stripped.includes(k))) {
-          currentSection = "experience";
-        } else if (["project", "portfolio", "key initiatives"].some(k => stripped.includes(k))) {
-          currentSection = "projects";
-        } else if (["education", "academic", "degree", "qualification", "university"].some(k => stripped.includes(k))) {
-          currentSection = "education";
+        const trimmed = line.trim();
+        const lower = trimmed.toLowerCase();
+        if (!trimmed) return;
+
+        // Header heuristic: headers are typically short (<= 55 chars) without terminal sentence punctuation
+        const isHeaderLike = trimmed.length <= 55 && !trimmed.endsWith('.') && !trimmed.includes(';');
+
+        if (isHeaderLike) {
+          if (summaryPattern.test(lower) || ["summary", "profile", "about me", "objective", "professional summary"].some(k => lower === k || lower.startsWith(k + ":"))) {
+            currentSection = "summary";
+            return;
+          } else if (skillsPattern.test(lower) || ["skills", "technical skills", "competencies", "technologies", "core expertise", "tech stack"].some(k => lower === k || lower.startsWith(k + ":"))) {
+            currentSection = "skills";
+            return;
+          } else if (experiencePattern.test(lower) || ["experience", "work experience", "professional experience", "employment history", "career"].some(k => lower === k || lower.startsWith(k + ":"))) {
+            currentSection = "experience";
+            return;
+          } else if (projectsPattern.test(lower) || ["projects", "key projects", "academic projects", "portfolio"].some(k => lower === k || lower.startsWith(k + ":"))) {
+            currentSection = "projects";
+            return;
+          } else if (educationPattern.test(lower) || ["education", "academic qualifications", "qualifications", "education background"].some(k => lower === k || lower.startsWith(k + ":"))) {
+            currentSection = "education";
+            return;
+          }
         }
-        sections[currentSection] += " " + line;
+
+        sections[currentSection] += " " + trimmed;
       });
 
       for (const k in sections) {
@@ -505,6 +525,70 @@
       };
     }
 
+    // Geometry-aware PDF.js Text Extractor
+    // Reconstructs lines and paragraph boundaries using (X, Y) coordinates and line-height thresholds
+    extractTextFromPdfContent(textContent) {
+      if (!textContent || !textContent.items || textContent.items.length === 0) {
+        return "";
+      }
+
+      // Filter out empty items
+      const items = textContent.items.filter(item => item && typeof item.str === 'string');
+      if (items.length === 0) return "";
+
+      // Sort items: primarily Y descending (top to bottom), secondarily X ascending (left to right)
+      // Group items on the same horizontal baseline within a 4px tolerance
+      items.sort((a, b) => {
+        const yA = a.transform ? a.transform[5] : 0;
+        const yB = b.transform ? b.transform[5] : 0;
+        const xA = a.transform ? a.transform[4] : 0;
+        const xB = b.transform ? b.transform[4] : 0;
+
+        if (Math.abs(yA - yB) > 4) {
+          return yB - yA; // Higher Y coordinate is higher up on the PDF page
+        }
+        return xA - xB; // Left to right
+      });
+
+      let pageText = "";
+      let lastY = null;
+      let lastX = null;
+      let lastWidth = 0;
+
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        const str = item.str;
+        if (!str) continue;
+
+        const curY = item.transform ? item.transform[5] : 0;
+        const curX = item.transform ? item.transform[4] : 0;
+        const width = item.width || 0;
+
+        if (lastY !== null) {
+          const yDiff = Math.abs(curY - lastY);
+          if (yDiff > 5) {
+            // New line detected (vertical drop)
+            // If drop is larger than 14px, treat as paragraph / section break
+            pageText += (yDiff > 14 ? "\n\n" : "\n");
+            lastX = null;
+          } else if (lastX !== null) {
+            // Same horizontal line: check if space is needed between fragments
+            const expectedX = lastX + lastWidth;
+            if (curX > expectedX + 1.5 && !pageText.endsWith(" ") && !str.startsWith(" ")) {
+              pageText += " ";
+            }
+          }
+        }
+
+        pageText += str;
+        lastY = curY;
+        lastX = curX;
+        lastWidth = width;
+      }
+
+      return pageText;
+    }
+
     // 7. Universal Client-Side File Parsers (.PDF, .DOCX, .TXT)
     async parseFileToText(file) {
       const fileName = file.name.toLowerCase();
@@ -540,7 +624,7 @@
         });
       }
 
-      // C. PDF Document via PDF.js
+      // C. PDF Document via PDF.js with Geometry & Line-Aware Extraction
       if (fileName.endsWith('.pdf')) {
         if (!window.pdfjsLib) {
           throw new Error("PDF.js library not loaded. Please check your internet connection.");
@@ -556,8 +640,8 @@
               for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
                 const page = await pdf.getPage(pageNum);
                 const textContent = await page.getTextContent();
-                const pageStrings = textContent.items.map(item => item.str);
-                fullText += pageStrings.join(" ") + "\n";
+                const pageText = this.extractTextFromPdfContent(textContent);
+                fullText += pageText + "\n\n";
               }
 
               resolve(fullText.trim());

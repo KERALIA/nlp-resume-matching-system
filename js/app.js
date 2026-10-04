@@ -899,10 +899,12 @@
     for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
       const page = await pdfDoc.getPage(pageNum);
       const content = await page.getTextContent();
-      const pageStrings = content.items.map(item => item.str);
-      fullText += pageStrings.join(" ") + "\n";
+      const pageText = nlpEngine && typeof nlpEngine.extractTextFromPdfContent === 'function'
+        ? nlpEngine.extractTextFromPdfContent(content)
+        : content.items.map(item => item.str).join(" ");
+      fullText += pageText + "\n\n";
     }
-    return fullText;
+    return fullText.trim();
   }
 
   async function parseDocxFile(file) {
